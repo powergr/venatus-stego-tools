@@ -97,11 +97,15 @@ class SignatureData(unittest.TestCase):
         for e in self.db:
             with self.subTest(id=e["id"]):
                 if e["tested"]:
-                    self.assertTrue(e["extensions"] or e["id"].startswith("zlib_"))
+                    # formats with no file extension (a registry hive, say) must name the tool that made the sample
+                    self.assertTrue(e["extensions"] or e["id"].startswith("zlib_") or e.get("testedWith"))
                 if e["trailer"] is None:
                     self.assertIsNone(e["trailerTested"])
                 if e["trailerTested"]:
                     self.assertTrue(e["tested"])
+                if "testedWith" in e:
+                    self.assertTrue(e["tested"])
+                    self.assertTrue(e["testedWith"].strip())
 
     def test_no_two_entries_share_the_same_header(self):
         seen = {}

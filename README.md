@@ -58,10 +58,11 @@ Useful options:
 
 `data/file-signatures.json` holds 95 signatures. Each entry has the header bytes with offsets, an optional trailer, extensions, a media type, a category, and a note about carving.
 
-Two flags describe how much to trust an entry:
+Three fields describe how much to trust an entry:
 
-- `tested` is true when a real file with one of the listed extensions carries the header, and the file was made by software other than ours.
+- `tested` is true when a real file carries the header, and the file was made by software other than ours. Where the format has listed extensions, the file used one of them.
 - `trailerTested` is true when such a file also ends with the listed trailer.
+- `testedWith` names the tool that made the sample file, for example "Scapy 2.8.0". It is present for newer entries and may be missing on older ones.
 
 Entries that are not tested come from published format specifications. They are probably right, but nobody has checked them against a file here. Please verify those before you rely on them.
 

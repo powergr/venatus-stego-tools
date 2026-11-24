@@ -134,8 +134,9 @@
   ],
   "trailer": null,
   "notes": "Big-endian byte order. Less common than the little-endian form.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "tifffile 2026.11.16 (big-endian)"
  },
  {
   "id": "webp",
@@ -195,8 +196,9 @@
   ],
   "trailer": null,
   "notes": "ASCII 8BPS. Followed by a two-byte version number.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "psd-tools 1.27.0"
  },
  {
   "id": "jp2",
@@ -252,8 +254,9 @@
   ],
   "trailer": null,
   "notes": "An ISO base media file: the ftyp box is at offset 4, followed by the brand heic.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "pillow-heif 1.8.1 (libheif)"
  },
  {
   "id": "pdf",
@@ -550,8 +553,9 @@
   ],
   "trailer": null,
   "notes": "The frame magic number 0x184D2204 stored little-endian.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "python-lz4 4.4.5"
  },
  {
   "id": "tar",
@@ -734,8 +738,9 @@
   ],
   "trailer": null,
   "notes": "A four-byte lead magic followed by version bytes.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "nfpm (goreleaser)"
  },
  {
   "id": "iso9660",
@@ -774,8 +779,9 @@
   ],
   "trailer": null,
   "notes": "Linux and Unix executables and libraries. Byte 4 gives 32 or 64-bit, and byte 5 the byte order.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Go 1.25 cross-compiler (Linux executable)"
  },
  {
   "id": "pe",
@@ -815,8 +821,9 @@
   ],
   "trailer": null,
   "notes": "macOS and iOS executables. The 32-bit little-endian form starts CE FA ED FE.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Go 1.25 cross-compiler (macOS executable)"
  },
  {
   "id": "java_class",
@@ -834,8 +841,9 @@
   ],
   "trailer": null,
   "notes": "Also the header of universal (fat) Mach-O binaries. For Java, bytes 6 and 7 hold the major version.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "javac (class file from a JDK 17 jar)"
  },
  {
   "id": "wasm",
@@ -872,8 +880,9 @@
   ],
   "trailer": null,
   "notes": "An escape byte followed by ASCII Lua. Byte 4 gives the Lua version, for example 0x54 for Lua 5.4.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Lua 5.4 through mlua (Rust)"
  },
  {
   "id": "sqlite",
@@ -910,8 +919,9 @@
   ],
   "trailer": null,
   "notes": "ASCII regf. Covers files such as NTUSER.DAT, SYSTEM, and SOFTWARE.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Windows (an app's settings.dat registry hive)"
  },
  {
   "id": "evtx",
@@ -929,8 +939,9 @@
   ],
   "trailer": null,
   "notes": "ASCII ElfFile and a null byte.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Windows wevtutil (Application event log)"
  },
  {
   "id": "lnk",
@@ -1005,8 +1016,9 @@
   ],
   "trailer": null,
   "notes": "ASCII MDMP. Crash and memory dumps from Windows tools.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Windows DbgHelp MiniDumpWriteDump"
  },
  {
   "id": "pcap_le",
@@ -1025,8 +1037,9 @@
   ],
   "trailer": null,
   "notes": "The classic libpcap format with microsecond timestamps. The nanosecond form starts 4D 3C B2 A1.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Scapy 2.8.0"
  },
  {
   "id": "pcap_be",
@@ -1103,8 +1116,9 @@
   ],
   "trailer": null,
   "notes": "A password database. The first four bytes are the same for KeePass 1 and 2, and the next four tell them apart.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "pykeepass 4.2.0"
  },
  {
   "id": "luks",
@@ -1447,8 +1461,9 @@
   ],
   "trailer": null,
   "notes": "The magic number 0xD00DFEED, stored big-endian. Describes hardware to the kernel.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "fdt 0.3.3"
  },
  {
   "id": "trx",
@@ -1626,8 +1641,9 @@
   ],
   "trailer": null,
   "notes": "ASCII MThd.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "mido 1.3.3"
  },
  {
   "id": "mp4",
