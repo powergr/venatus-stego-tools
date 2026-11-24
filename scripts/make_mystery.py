@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Build mystery.bin: a small, reproducible 'firmware-like' blob for practicing with binwalk.
 Layout: text banner, PNG, padding, gzip, padding, ZIP, random bytes, trailing text.
-Standard library only. Running it twice produces byte-identical output."""
+Standard library only. Running it twice on the same machine produces byte-identical output.
+The compressed sizes, and so the offsets, can differ by a few bytes with another zlib build."""
 import gzip
 import io
 import random
@@ -55,5 +56,6 @@ for name, data in parts:
     print(f"{name:<16}{offset:>8}{offset:>#9x}{len(data):>8}")
     blob += data
     offset += len(data)
-open("mystery.bin", "wb").write(blob)
+with open("mystery.bin", "wb") as out:
+    out.write(blob)
 print(f"\nwrote mystery.bin, {len(blob)} bytes")

@@ -7,7 +7,7 @@ P1, P2, MOD = 1315423911, 2654435761, 1000003
 ranks = np.arange(1, V + 1)
 base = 1.0 / ranks
 base /= base.sum()
-tokens = np.arange(V)
+tokens = np.arange(V, dtype=np.int64)  # P2 does not fit in 32 bits, so be explicit about the width
 
 def green_mask(prev):
     """Half the vocabulary is 'green' for each previous token, chosen by a keyed hash."""

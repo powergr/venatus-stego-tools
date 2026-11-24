@@ -12,9 +12,17 @@ def sha256(blob: bytes) -> str:
     return hashlib.sha256(blob).hexdigest()
 
 
+if len(sys.argv) != 2:
+    print("usage: python evidence_log.py image.jpg", file=sys.stderr)
+    sys.exit(2)
 path = sys.argv[1]
-data = open(path, "rb").read()
-end = jpeg_end(data) if data[:2] == b"\xff\xd8" else png_end(data)
+with open(path, "rb") as f:
+    data = f.read()
+try:
+    end = jpeg_end(data) if data[:2] == b"\xff\xd8" else png_end(data)
+except ValueError as err:
+    print(f"{path}: cannot find the end of the image ({err})", file=sys.stderr)
+    sys.exit(2)
 extra = data[end:]
 
 now = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")

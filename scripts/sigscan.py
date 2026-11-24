@@ -35,30 +35,39 @@ def risk(matched_bytes):
 
 
 def scan(data, signatures, min_bytes=4, start_only=False):
-    """Return a list of hits sorted by file offset. Each hit is a dict."""
+    """Return a list of hits sorted by file offset. Each hit is a dict.
+
+    With start_only the file is not searched at all: each signature is checked once, at offset 0.
+    """
     hits = []
     for sig in signatures:
         checks = [(c["offset"], to_bytes(c["hex"])) for c in sig["magic"]]
         matched = sum(len(b) for _, b in checks)
         if matched < min_bytes:
             continue
+
+        def hit(start):
+            return {
+                "offset": start,
+                "id": sig["id"],
+                "name": sig["name"],
+                "category": sig["category"],
+                "matched_bytes": matched,
+                "risk": risk(matched),
+                "extensions": sig["extensions"],
+            }
+
+        if start_only:
+            if all(data[o:o + len(b)] == b for o, b in checks):
+                hits.append(hit(0))
+            continue
+
         first_offset, first_bytes = checks[0]
         pos = data.find(first_bytes)
         while pos != -1:
             start = pos - first_offset
             if start >= 0 and all(data[start + o:start + o + len(b)] == b for o, b in checks):
-                if not start_only or start == 0:
-                    hits.append({
-                        "offset": start,
-                        "id": sig["id"],
-                        "name": sig["name"],
-                        "category": sig["category"],
-                        "matched_bytes": matched,
-                        "risk": risk(matched),
-                        "extensions": sig["extensions"],
-                    })
-            if start_only and pos > first_offset:
-                break
+                hits.append(hit(start))
             pos = data.find(first_bytes, pos + 1)
     hits.sort(key=lambda h: (h["offset"], -h["matched_bytes"], h["id"]))
     return hits
@@ -78,16 +87,19 @@ def main(argv=None):
     with open(args.file, "rb") as f:
         data = f.read()
     hits = scan(data, load_signatures(args.db), args.min_bytes, args.start_only)
+    hidden = len(hits) - args.limit
 
     if args.json:
         json.dump(hits[:args.limit], sys.stdout, indent=1)
         print()
+        if hidden > 0:  # stderr, so the JSON on stdout stays valid
+            print(f"warning: {hidden} more hits not shown (raise --limit)", file=sys.stderr)
     else:
         print(f"{'offset':>8}  {'hex':>8}  {'risk':<6} {'bytes':>5}  format")
         for h in hits[:args.limit]:
             print(f"{h['offset']:>8}  {h['offset']:>#8x}  {h['risk']:<6} {h['matched_bytes']:>5}  {h['name']}")
-        if len(hits) > args.limit:
-            print(f"... {len(hits) - args.limit} more hits not shown (raise --limit)")
+        if hidden > 0:
+            print(f"... {hidden} more hits not shown (raise --limit)")
         print(f"\n{len(hits)} candidate hit(s) in {len(data)} bytes. Verify each one before you trust it.")
     return 0
 

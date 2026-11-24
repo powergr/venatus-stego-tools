@@ -871,7 +871,7 @@
    }
   ],
   "trailer": null,
-  "notes": "An escape byte followed by ASCII Lua. Byte 5 gives the Lua version.",
+  "notes": "An escape byte followed by ASCII Lua. Byte 4 gives the Lua version, for example 0x54 for Lua 5.4.",
   "tested": false,
   "trailerTested": null
  },
@@ -1647,7 +1647,7 @@
    }
   ],
   "trailer": null,
-  "notes": "The ftyp box is at offset 4, and the brand follows it (isom, mp42, M4A, qt and others).",
+  "notes": "The ftyp box is at offset 4, and the brand follows it (isom, mp42, M4A, qt and others). AVIF and HEIC files also start with an ftyp box, so they match this entry too. Read the brand to tell them apart.",
   "tested": true,
   "trailerTested": null
  },
@@ -1726,7 +1726,7 @@
    }
   ],
   "trailer": null,
-  "notes": "The sfnt version 1.0 followed by a table count. TrueType Collections start with ttcf instead.",
+  "notes": "The sfnt version 1.0 followed by the high byte of the table count, which is 00 for any font with fewer than 256 tables. That covers every real font. TrueType Collections start with ttcf instead.",
   "tested": true,
   "trailerTested": null
  },
