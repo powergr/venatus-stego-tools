@@ -978,8 +978,9 @@
   ],
   "trailer": null,
   "notes": "ASCII SCCA at offset 4. Windows 10 and later usually compress these files.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Windows Prefetcher (expanded by ntdll RtlDecompressBufferEx)"
  },
  {
   "id": "prefetch_mam",
@@ -997,8 +998,9 @@
   ],
   "trailer": null,
   "notes": "ASCII MAM and a 04 byte. The compressed form used by Windows 10 and later.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Windows Prefetcher (compressed file)"
  },
  {
   "id": "minidump",
@@ -1170,8 +1172,9 @@
   ],
   "trailer": null,
   "notes": "The OEM ID at offset 3 of the boot sector is the string NTFS followed by four spaces.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Windows format (NTFS boot sector of C:)"
  },
  {
   "id": "bitlocker",
@@ -1204,8 +1207,9 @@
   ],
   "trailer": null,
   "notes": "Two bytes at offset 510 end the first sector. They also appear on FAT volumes, so this is weak on its own.",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Windows setup (first sector of the system disk)"
  },
  {
   "id": "gpt",
@@ -1221,8 +1225,9 @@
   ],
   "trailer": null,
   "notes": "ASCII EFI PART at offset 512 (the second sector on disks with 512-byte sectors).",
-  "tested": false,
-  "trailerTested": null
+  "tested": true,
+  "trailerTested": null,
+  "testedWith": "Windows setup (GPT header of the system disk)"
  },
  {
   "id": "ext",
