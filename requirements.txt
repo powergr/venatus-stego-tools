@@ -1,0 +1,3 @@
+# Only recompress_demo.py and toy_text_watermark.py need these. Everything else uses the standard library.
+numpy>=1.24
+Pillow>=10.0

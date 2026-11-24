@@ -1,0 +1,1830 @@
+[
+ {
+  "id": "png",
+  "name": "PNG image",
+  "category": "image",
+  "extensions": [
+   "png"
+  ],
+  "mime": "image/png",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "89 50 4E 47 0D 0A 1A 0A"
+   }
+  ],
+  "trailer": "49 45 4E 44 AE 42 60 82",
+  "notes": "Ends with an IEND chunk. Data after the trailer is not part of the image.",
+  "tested": true,
+  "trailerTested": true
+ },
+ {
+  "id": "jpeg",
+  "name": "JPEG image",
+  "category": "image",
+  "extensions": [
+   "jpg",
+   "jpeg",
+   "jpe",
+   "jfif"
+  ],
+  "mime": "image/jpeg",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "FF D8 FF"
+   }
+  ],
+  "trailer": "FF D9",
+  "notes": "The fourth byte varies (E0 JFIF, E1 Exif, DB). Embedded thumbnails also contain FF D9, so walk the segments to find the real end.",
+  "tested": true,
+  "trailerTested": true
+ },
+ {
+  "id": "gif87a",
+  "name": "GIF image (87a)",
+  "category": "image",
+  "extensions": [
+   "gif"
+  ],
+  "mime": "image/gif",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "47 49 46 38 37 61"
+   }
+  ],
+  "trailer": "3B",
+  "notes": "The trailer is a single byte, so it is weak evidence on its own.",
+  "tested": true,
+  "trailerTested": true
+ },
+ {
+  "id": "gif89a",
+  "name": "GIF image (89a)",
+  "category": "image",
+  "extensions": [
+   "gif"
+  ],
+  "mime": "image/gif",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "47 49 46 38 39 61"
+   }
+  ],
+  "trailer": "3B",
+  "notes": "The most common GIF version. The trailer is a single byte, so it is weak evidence on its own.",
+  "tested": true,
+  "trailerTested": true
+ },
+ {
+  "id": "bmp",
+  "name": "BMP image",
+  "category": "image",
+  "extensions": [
+   "bmp"
+  ],
+  "mime": "image/bmp",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "42 4D"
+   }
+  ],
+  "trailer": null,
+  "notes": "Only two bytes, so expect many false positives. Bytes 2 to 5 hold the file size.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "tiff_le",
+  "name": "TIFF image (little-endian)",
+  "category": "image",
+  "extensions": [
+   "tif",
+   "tiff"
+  ],
+  "mime": "image/tiff",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "49 49 2A 00"
+   }
+  ],
+  "trailer": null,
+  "notes": "Several camera RAW formats (DNG, CR2, NEF) use the same TIFF structure.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "tiff_be",
+  "name": "TIFF image (big-endian)",
+  "category": "image",
+  "extensions": [
+   "tif",
+   "tiff"
+  ],
+  "mime": "image/tiff",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4D 4D 00 2A"
+   }
+  ],
+  "trailer": null,
+  "notes": "Big-endian byte order. Less common than the little-endian form.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "webp",
+  "name": "WebP image",
+  "category": "image",
+  "extensions": [
+   "webp"
+  ],
+  "mime": "image/webp",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "52 49 46 46"
+   },
+   {
+    "offset": 8,
+    "hex": "57 45 42 50"
+   }
+  ],
+  "trailer": null,
+  "notes": "A RIFF container. Bytes 4 to 7 hold the chunk size, and the form type WEBP sits at offset 8.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "ico",
+  "name": "Windows icon",
+  "category": "image",
+  "extensions": [
+   "ico"
+  ],
+  "mime": "image/vnd.microsoft.icon",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "00 00 01 00"
+   }
+  ],
+  "trailer": null,
+  "notes": "Begins with zero bytes, so false positives are common. Cursor files use 00 00 02 00.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "psd",
+  "name": "Photoshop document",
+  "category": "image",
+  "extensions": [
+   "psd"
+  ],
+  "mime": "image/vnd.adobe.photoshop",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "38 42 50 53"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII 8BPS. Followed by a two-byte version number.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "jp2",
+  "name": "JPEG 2000 image",
+  "category": "image",
+  "extensions": [
+   "jp2"
+  ],
+  "mime": "image/jp2",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "00 00 00 0C 6A 50 20 20 0D 0A 87 0A"
+   }
+  ],
+  "trailer": null,
+  "notes": "A twelve-byte signature box. Raw codestreams without it begin with FF 4F FF 51.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "avif",
+  "name": "AVIF image",
+  "category": "image",
+  "extensions": [
+   "avif"
+  ],
+  "mime": "image/avif",
+  "magic": [
+   {
+    "offset": 4,
+    "hex": "66 74 79 70 61 76 69 66"
+   }
+  ],
+  "trailer": null,
+  "notes": "An ISO base media file: the ftyp box is at offset 4, followed by the brand avif. Extra top-level boxes can follow the image data.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "heic",
+  "name": "HEIC image",
+  "category": "image",
+  "extensions": [
+   "heic"
+  ],
+  "mime": "image/heic",
+  "magic": [
+   {
+    "offset": 4,
+    "hex": "66 74 79 70 68 65 69 63"
+   }
+  ],
+  "trailer": null,
+  "notes": "An ISO base media file: the ftyp box is at offset 4, followed by the brand heic.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "pdf",
+  "name": "PDF document",
+  "category": "document",
+  "extensions": [
+   "pdf"
+  ],
+  "mime": "application/pdf",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "25 50 44 46 2D"
+   }
+  ],
+  "trailer": "25 25 45 4F 46",
+  "notes": "Incremental updates append new %%EOF markers, so one file can contain several. Search backwards from the end.",
+  "tested": true,
+  "trailerTested": true
+ },
+ {
+  "id": "rtf",
+  "name": "Rich Text Format",
+  "category": "document",
+  "extensions": [
+   "rtf"
+  ],
+  "mime": "application/rtf",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "7B 5C 72 74 66 31"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII text that begins with an opening brace, a backslash, and rtf1.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "ole2",
+  "name": "OLE2 compound file",
+  "category": "document",
+  "extensions": [
+   "doc",
+   "xls",
+   "ppt",
+   "msi",
+   "msg"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "D0 CF 11 E0 A1 B1 1A E1"
+   }
+  ],
+  "trailer": null,
+  "notes": "Legacy Microsoft Office formats, MSI installers, and Outlook .msg files. Thumbs.db files use it too.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "xml",
+  "name": "XML text",
+  "category": "document",
+  "extensions": [
+   "xml"
+  ],
+  "mime": "text/xml",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "3C 3F 78 6D 6C"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII <?xml. A byte order mark or whitespace may come first, so the match can be offset by a few bytes.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "postscript",
+  "name": "PostScript",
+  "category": "document",
+  "extensions": [
+   "ps",
+   "eps"
+  ],
+  "mime": "application/postscript",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "25 21 50 53"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII %!PS, often followed by -Adobe-3.0. Encapsulated PostScript can start with a binary header instead.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "zip",
+  "name": "ZIP archive",
+  "category": "archive",
+  "extensions": [
+   "zip",
+   "jar",
+   "apk",
+   "docx",
+   "xlsx",
+   "pptx",
+   "odt",
+   "epub"
+  ],
+  "mime": "application/zip",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "50 4B 03 04"
+   }
+  ],
+  "trailer": "50 4B 05 06",
+  "notes": "Many formats are ZIP files. The index (end of central directory, 22 bytes plus a comment) is at the end, so carve to the last 50 4B 05 06.",
+  "tested": true,
+  "trailerTested": true
+ },
+ {
+  "id": "zip_empty",
+  "name": "ZIP archive (empty)",
+  "category": "archive",
+  "extensions": [
+   "zip"
+  ],
+  "mime": "application/zip",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "50 4B 05 06"
+   }
+  ],
+  "trailer": null,
+  "notes": "An archive with no entries starts directly with the end record.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "gzip",
+  "name": "gzip compressed data",
+  "category": "compression",
+  "extensions": [
+   "gz",
+   "tgz"
+  ],
+  "mime": "application/gzip",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "1F 8B 08"
+   }
+  ],
+  "trailer": null,
+  "notes": "No stored compressed length, so decompress the stream to find its end. The last eight bytes hold the CRC32 and the original size.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "bzip2",
+  "name": "bzip2 compressed data",
+  "category": "compression",
+  "extensions": [
+   "bz2"
+  ],
+  "mime": "application/x-bzip2",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "42 5A 68"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII BZh followed by a block size digit from 1 to 9.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "xz",
+  "name": "XZ compressed data",
+  "category": "compression",
+  "extensions": [
+   "xz"
+  ],
+  "mime": "application/x-xz",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "FD 37 7A 58 5A 00"
+   }
+  ],
+  "trailer": "59 5A",
+  "notes": "The footer ends with the two ASCII bytes YZ.",
+  "tested": true,
+  "trailerTested": true
+ },
+ {
+  "id": "7z",
+  "name": "7-Zip archive",
+  "category": "archive",
+  "extensions": [
+   "7z"
+  ],
+  "mime": "application/x-7z-compressed",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "37 7A BC AF 27 1C"
+   }
+  ],
+  "trailer": null,
+  "notes": "A six-byte signature followed by a version number. The header that lists the files is stored near the end.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "rar4",
+  "name": "RAR archive (version 1.5 to 4)",
+  "category": "archive",
+  "extensions": [
+   "rar"
+  ],
+  "mime": "application/vnd.rar",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "52 61 72 21 1A 07 00"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII Rar! followed by 1A 07 00.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "rar5",
+  "name": "RAR archive (version 5)",
+  "category": "archive",
+  "extensions": [
+   "rar"
+  ],
+  "mime": "application/vnd.rar",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "52 61 72 21 1A 07 01 00"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII Rar! followed by 1A 07 01 00.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "zstd",
+  "name": "Zstandard compressed data",
+  "category": "compression",
+  "extensions": [
+   "zst"
+  ],
+  "mime": "application/zstd",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "28 B5 2F FD"
+   }
+  ],
+  "trailer": null,
+  "notes": "The frame magic number 0xFD2FB528 stored little-endian.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "lz4",
+  "name": "LZ4 frame",
+  "category": "compression",
+  "extensions": [
+   "lz4"
+  ],
+  "mime": "application/x-lz4",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "04 22 4D 18"
+   }
+  ],
+  "trailer": null,
+  "notes": "The frame magic number 0x184D2204 stored little-endian.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "tar",
+  "name": "tar archive (POSIX ustar)",
+  "category": "archive",
+  "extensions": [
+   "tar"
+  ],
+  "mime": "application/x-tar",
+  "magic": [
+   {
+    "offset": 257,
+    "hex": "75 73 74 61 72"
+   }
+  ],
+  "trailer": null,
+  "notes": "The magic sits at offset 257, so subtract 257 to find the start. Old-style tar archives have no magic.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "cpio",
+  "name": "cpio archive (newc)",
+  "category": "archive",
+  "extensions": [
+   "cpio"
+  ],
+  "mime": "application/x-cpio",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "30 37 30 37 30 31"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII 070701. Used for Linux initramfs images.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "cab",
+  "name": "Microsoft Cabinet archive",
+  "category": "archive",
+  "extensions": [
+   "cab"
+  ],
+  "mime": "application/vnd.ms-cab-compressed",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4D 53 43 46"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII MSCF followed by four reserved zero bytes.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "zlib_default",
+  "name": "zlib stream (default compression)",
+  "category": "compression",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "78 9C"
+   }
+  ],
+  "trailer": null,
+  "notes": "Only two bytes, so very weak. Also appears inside PNG, PDF, and many firmware images.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "zlib_best",
+  "name": "zlib stream (best compression)",
+  "category": "compression",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "78 DA"
+   }
+  ],
+  "trailer": null,
+  "notes": "Only two bytes, so very weak. Also appears inside PNG, PDF, and many firmware images.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "zlib_fast",
+  "name": "zlib stream (fast compression)",
+  "category": "compression",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "78 5E"
+   }
+  ],
+  "trailer": null,
+  "notes": "Only two bytes, so very weak. Produced by zlib compression levels 2 to 5.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "zlib_low",
+  "name": "zlib stream (no or low compression)",
+  "category": "compression",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "78 01"
+   }
+  ],
+  "trailer": null,
+  "notes": "Only two bytes, so very weak. Common for stored (uncompressed) blocks.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "compress_z",
+  "name": "Unix compress (.Z)",
+  "category": "compression",
+  "extensions": [
+   "z"
+  ],
+  "mime": "application/x-compress",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "1F 9D"
+   }
+  ],
+  "trailer": null,
+  "notes": "Only two bytes, so weak. An old format, now rare.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "ar",
+  "name": "ar archive",
+  "category": "archive",
+  "extensions": [
+   "a",
+   "ar",
+   "deb"
+  ],
+  "mime": "application/x-archive",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "21 3C 61 72 63 68 3E 0A"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII !<arch> and a newline. Debian packages (.deb) are ar archives.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "rpm",
+  "name": "RPM package",
+  "category": "archive",
+  "extensions": [
+   "rpm"
+  ],
+  "mime": "application/x-rpm",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "ED AB EE DB"
+   }
+  ],
+  "trailer": null,
+  "notes": "A four-byte lead magic followed by version bytes.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "iso9660",
+  "name": "ISO 9660 disc image",
+  "category": "filesystem",
+  "extensions": [
+   "iso"
+  ],
+  "mime": "application/x-iso9660-image",
+  "magic": [
+   {
+    "offset": 32769,
+    "hex": "43 44 30 30 31"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII CD001 at offset 32769 (0x8001), so subtract that to find the image start.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "elf",
+  "name": "ELF executable",
+  "category": "executable",
+  "extensions": [
+   "elf",
+   "so",
+   "o"
+  ],
+  "mime": "application/x-elf",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "7F 45 4C 46"
+   }
+  ],
+  "trailer": null,
+  "notes": "Linux and Unix executables and libraries. Byte 4 gives 32 or 64-bit, and byte 5 the byte order.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "pe",
+  "name": "Windows executable (MZ)",
+  "category": "executable",
+  "extensions": [
+   "exe",
+   "dll",
+   "sys"
+  ],
+  "mime": "application/vnd.microsoft.portable-executable",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4D 5A"
+   }
+  ],
+  "trailer": null,
+  "notes": "Only two bytes, so many false positives. A real PE file has PE and two zero bytes at the offset stored at 0x3C.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "macho64",
+  "name": "Mach-O 64-bit (little-endian)",
+  "category": "executable",
+  "extensions": [
+   "dylib",
+   "o"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "CF FA ED FE"
+   }
+  ],
+  "trailer": null,
+  "notes": "macOS and iOS executables. The 32-bit little-endian form starts CE FA ED FE.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "java_class",
+  "name": "Java class file / universal Mach-O",
+  "category": "executable",
+  "extensions": [
+   "class"
+  ],
+  "mime": "application/java-vm",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "CA FE BA BE"
+   }
+  ],
+  "trailer": null,
+  "notes": "Also the header of universal (fat) Mach-O binaries. For Java, bytes 6 and 7 hold the major version.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "wasm",
+  "name": "WebAssembly module",
+  "category": "executable",
+  "extensions": [
+   "wasm"
+  ],
+  "mime": "application/wasm",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "00 61 73 6D"
+   }
+  ],
+  "trailer": null,
+  "notes": "A null byte followed by ASCII asm, then a four-byte version number.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "lua_bytecode",
+  "name": "Lua bytecode",
+  "category": "executable",
+  "extensions": [
+   "luac"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "1B 4C 75 61"
+   }
+  ],
+  "trailer": null,
+  "notes": "An escape byte followed by ASCII Lua. Byte 5 gives the Lua version.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "sqlite",
+  "name": "SQLite database",
+  "category": "database",
+  "extensions": [
+   "sqlite",
+   "sqlite3",
+   "db"
+  ],
+  "mime": "application/vnd.sqlite3",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "53 51 4C 69 74 65 20 66 6F 72 6D 61 74 20 33 00"
+   }
+  ],
+  "trailer": null,
+  "notes": "The string SQLite format 3 and a null byte. Browser history, mobile apps, and many forensic artifacts are SQLite files.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "regf",
+  "name": "Windows registry hive",
+  "category": "forensics",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "72 65 67 66"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII regf. Covers files such as NTUSER.DAT, SYSTEM, and SOFTWARE.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "evtx",
+  "name": "Windows event log",
+  "category": "forensics",
+  "extensions": [
+   "evtx"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "45 6C 66 46 69 6C 65 00"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII ElfFile and a null byte.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "lnk",
+  "name": "Windows shortcut",
+  "category": "forensics",
+  "extensions": [
+   "lnk"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4C 00 00 00 01 14 02 00"
+   }
+  ],
+  "trailer": null,
+  "notes": "A header size of 0x4C followed by the shell link class identifier.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "prefetch",
+  "name": "Windows prefetch file (uncompressed)",
+  "category": "forensics",
+  "extensions": [
+   "pf"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 4,
+    "hex": "53 43 43 41"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII SCCA at offset 4. Windows 10 and later usually compress these files.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "prefetch_mam",
+  "name": "Windows prefetch file (compressed)",
+  "category": "forensics",
+  "extensions": [
+   "pf"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4D 41 4D 04"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII MAM and a 04 byte. The compressed form used by Windows 10 and later.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "minidump",
+  "name": "Windows minidump",
+  "category": "forensics",
+  "extensions": [
+   "dmp"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4D 44 4D 50"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII MDMP. Crash and memory dumps from Windows tools.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "pcap_le",
+  "name": "PCAP capture (little-endian)",
+  "category": "forensics",
+  "extensions": [
+   "pcap",
+   "cap"
+  ],
+  "mime": "application/vnd.tcpdump.pcap",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "D4 C3 B2 A1"
+   }
+  ],
+  "trailer": null,
+  "notes": "The classic libpcap format with microsecond timestamps. The nanosecond form starts 4D 3C B2 A1.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "pcap_be",
+  "name": "PCAP capture (big-endian)",
+  "category": "forensics",
+  "extensions": [
+   "pcap",
+   "cap"
+  ],
+  "mime": "application/vnd.tcpdump.pcap",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "A1 B2 C3 D4"
+   }
+  ],
+  "trailer": null,
+  "notes": "The byte-swapped form of the classic libpcap format.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "pcapng",
+  "name": "PCAPNG capture",
+  "category": "forensics",
+  "extensions": [
+   "pcapng"
+  ],
+  "mime": "application/x-pcapng",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "0A 0D 0D 0A"
+   }
+  ],
+  "trailer": null,
+  "notes": "The Section Header Block of the newer capture format used by Wireshark.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "pst",
+  "name": "Outlook data file",
+  "category": "forensics",
+  "extensions": [
+   "pst",
+   "ost"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "21 42 44 4E"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII !BDN. Outlook mail archives and offline caches.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "kdbx",
+  "name": "KeePass 2 database",
+  "category": "forensics",
+  "extensions": [
+   "kdbx"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "03 D9 A2 9A 67 FB 4B B5"
+   }
+  ],
+  "trailer": null,
+  "notes": "A password database. The first four bytes are the same for KeePass 1 and 2, and the next four tell them apart.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "luks",
+  "name": "LUKS encrypted volume",
+  "category": "forensics",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4C 55 4B 53 BA BE"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII LUKS followed by BA BE. Linux disk encryption.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "bplist",
+  "name": "Apple binary property list",
+  "category": "forensics",
+  "extensions": [
+   "plist"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "62 70 6C 69 73 74 30 30"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII bplist00. Common in iOS and macOS backups.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "ntfs",
+  "name": "NTFS volume",
+  "category": "filesystem",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 3,
+    "hex": "4E 54 46 53 20 20 20 20"
+   }
+  ],
+  "trailer": null,
+  "notes": "The OEM ID at offset 3 of the boot sector is the string NTFS followed by four spaces.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "bitlocker",
+  "name": "BitLocker volume",
+  "category": "filesystem",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 3,
+    "hex": "2D 46 56 45 2D 46 53 2D"
+   }
+  ],
+  "trailer": null,
+  "notes": "The OEM ID at offset 3 is -FVE-FS-.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "mbr",
+  "name": "Master boot record signature",
+  "category": "filesystem",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 510,
+    "hex": "55 AA"
+   }
+  ],
+  "trailer": null,
+  "notes": "Two bytes at offset 510 end the first sector. They also appear on FAT volumes, so this is weak on its own.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "gpt",
+  "name": "GPT partition table header",
+  "category": "filesystem",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 512,
+    "hex": "45 46 49 20 50 41 52 54"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII EFI PART at offset 512 (the second sector on disks with 512-byte sectors).",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "ext",
+  "name": "ext2, ext3, or ext4 superblock",
+  "category": "filesystem",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 1080,
+    "hex": "53 EF"
+   }
+  ],
+  "trailer": null,
+  "notes": "The superblock magic sits at offset 1080 (0x438). Only two bytes, so combine it with other evidence.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "vmdk",
+  "name": "VMware sparse disk",
+  "category": "filesystem",
+  "extensions": [
+   "vmdk"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4B 44 4D 56"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII KDMV. Virtual machine disk images.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "qcow",
+  "name": "QEMU QCOW image",
+  "category": "filesystem",
+  "extensions": [
+   "qcow",
+   "qcow2"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "51 46 49 FB"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII QFI followed by FB.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "vhd",
+  "name": "Virtual hard disk",
+  "category": "filesystem",
+  "extensions": [
+   "vhd"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "63 6F 6E 65 63 74 69 78"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII conectix. A copy of this footer is also stored at the end of the file.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "squashfs_le",
+  "name": "SquashFS (little-endian)",
+  "category": "firmware",
+  "extensions": [
+   "squashfs",
+   "sqsh"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "68 73 71 73"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII hsqs. A very common read-only root filesystem in router and IoT firmware.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "squashfs_be",
+  "name": "SquashFS (big-endian)",
+  "category": "firmware",
+  "extensions": [
+   "squashfs",
+   "sqsh"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "73 71 73 68"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII sqsh. The big-endian form.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "cramfs",
+  "name": "CramFS",
+  "category": "firmware",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "45 3D CD 28"
+   }
+  ],
+  "trailer": null,
+  "notes": "The magic number 0x28CD3D45 stored little-endian.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "jffs2",
+  "name": "JFFS2 node (little-endian)",
+  "category": "firmware",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "85 19"
+   }
+  ],
+  "trailer": null,
+  "notes": "Only two bytes, so weak. JFFS2 images are a sequence of nodes, and each starts with this magic.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "ubi",
+  "name": "UBI erase block",
+  "category": "firmware",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "55 42 49 23"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII UBI followed by a hash sign. Flash images from devices that use UBI.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "uimage",
+  "name": "U-Boot uImage",
+  "category": "firmware",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "27 05 19 56"
+   }
+  ],
+  "trailer": null,
+  "notes": "The legacy U-Boot header magic number 0x27051956. It wraps a kernel or ramdisk.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "android_sparse",
+  "name": "Android sparse image",
+  "category": "firmware",
+  "extensions": [
+   "img"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "3A FF 26 ED"
+   }
+  ],
+  "trailer": null,
+  "notes": "The sparse image magic 0xED26FF3A stored little-endian.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "android_boot",
+  "name": "Android boot image",
+  "category": "firmware",
+  "extensions": [
+   "img"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "41 4E 44 52 4F 49 44 21"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII ANDROID! followed by the kernel and ramdisk details.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "dtb",
+  "name": "Flattened device tree blob",
+  "category": "firmware",
+  "extensions": [
+   "dtb"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "D0 0D FE ED"
+   }
+  ],
+  "trailer": null,
+  "notes": "The magic number 0xD00DFEED, stored big-endian. Describes hardware to the kernel.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "trx",
+  "name": "Broadcom TRX firmware",
+  "category": "firmware",
+  "extensions": [
+   "trx"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "48 44 52 30"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII HDR0. A common wrapper on router firmware.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "zimage_arm",
+  "name": "Linux ARM zImage",
+  "category": "firmware",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 36,
+    "hex": "18 28 6F 01"
+   }
+  ],
+  "trailer": null,
+  "notes": "A magic number at offset 0x24 (36), so subtract 36 to find the image start.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "bzimage_x86",
+  "name": "Linux x86 bzImage",
+  "category": "firmware",
+  "extensions": [],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 514,
+    "hex": "48 64 72 53"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII HdrS at offset 0x202 (514), so subtract 514 to find the image start.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "mp3_id3",
+  "name": "MP3 with an ID3v2 tag",
+  "category": "audio",
+  "extensions": [
+   "mp3"
+  ],
+  "mime": "audio/mpeg",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "49 44 33"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII ID3. MP3 files without a tag start with a frame sync of FF FB or FF F3 instead.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "wav",
+  "name": "WAV audio",
+  "category": "audio",
+  "extensions": [
+   "wav"
+  ],
+  "mime": "audio/wav",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "52 49 46 46"
+   },
+   {
+    "offset": 8,
+    "hex": "57 41 56 45"
+   }
+  ],
+  "trailer": null,
+  "notes": "A RIFF container with the form type WAVE at offset 8.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "avi",
+  "name": "AVI video",
+  "category": "video",
+  "extensions": [
+   "avi"
+  ],
+  "mime": "video/x-msvideo",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "52 49 46 46"
+   },
+   {
+    "offset": 8,
+    "hex": "41 56 49 20"
+   }
+  ],
+  "trailer": null,
+  "notes": "A RIFF container with the form type AVI followed by a space at offset 8.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "flac",
+  "name": "FLAC audio",
+  "category": "audio",
+  "extensions": [
+   "flac"
+  ],
+  "mime": "audio/flac",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "66 4C 61 43"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII fLaC.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "ogg",
+  "name": "Ogg container",
+  "category": "audio",
+  "extensions": [
+   "ogg",
+   "oga",
+   "ogv",
+   "opus"
+  ],
+  "mime": "audio/ogg",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4F 67 67 53"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII OggS. Used for Vorbis, Opus, FLAC, and Theora streams.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "midi",
+  "name": "MIDI file",
+  "category": "audio",
+  "extensions": [
+   "mid",
+   "midi"
+  ],
+  "mime": "audio/midi",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4D 54 68 64"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII MThd.",
+  "tested": false,
+  "trailerTested": null
+ },
+ {
+  "id": "mp4",
+  "name": "MP4 or MOV (ISO base media)",
+  "category": "video",
+  "extensions": [
+   "mp4",
+   "m4a",
+   "m4v",
+   "mov"
+  ],
+  "mime": "video/mp4",
+  "magic": [
+   {
+    "offset": 4,
+    "hex": "66 74 79 70"
+   }
+  ],
+  "trailer": null,
+  "notes": "The ftyp box is at offset 4, and the brand follows it (isom, mp42, M4A, qt and others).",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "mkv",
+  "name": "Matroska or WebM",
+  "category": "video",
+  "extensions": [
+   "mkv",
+   "webm"
+  ],
+  "mime": "video/x-matroska",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "1A 45 DF A3"
+   }
+  ],
+  "trailer": null,
+  "notes": "The EBML header magic. The DocType field later says matroska or webm.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "flv",
+  "name": "Flash video",
+  "category": "video",
+  "extensions": [
+   "flv"
+  ],
+  "mime": "video/x-flv",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "46 4C 56 01"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII FLV followed by version 1.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "asf",
+  "name": "ASF, WMV, or WMA",
+  "category": "video",
+  "extensions": [
+   "wmv",
+   "wma",
+   "asf"
+  ],
+  "mime": "video/x-ms-asf",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "30 26 B2 75 8E 66 CF 11"
+   }
+  ],
+  "trailer": null,
+  "notes": "The first eight bytes of the ASF header object identifier.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "ttf",
+  "name": "TrueType font",
+  "category": "font",
+  "extensions": [
+   "ttf"
+  ],
+  "mime": "font/ttf",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "00 01 00 00 00"
+   }
+  ],
+  "trailer": null,
+  "notes": "The sfnt version 1.0 followed by a table count. TrueType Collections start with ttcf instead.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "otf",
+  "name": "OpenType font (CFF)",
+  "category": "font",
+  "extensions": [
+   "otf"
+  ],
+  "mime": "font/otf",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "4F 54 54 4F"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII OTTO.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "woff",
+  "name": "WOFF font",
+  "category": "font",
+  "extensions": [
+   "woff"
+  ],
+  "mime": "font/woff",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "77 4F 46 46"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII wOFF.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "woff2",
+  "name": "WOFF2 font",
+  "category": "font",
+  "extensions": [
+   "woff2"
+  ],
+  "mime": "font/woff2",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "77 4F 46 32"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII wOF2.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "pem",
+  "name": "PEM text block",
+  "category": "other",
+  "extensions": [
+   "pem",
+   "crt",
+   "key"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "2D 2D 2D 2D 2D 42 45 47 49 4E 20"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII -----BEGIN followed by a space. Certificates and keys. The body is Base64 text.",
+  "tested": true,
+  "trailerTested": null
+ },
+ {
+  "id": "git_pack",
+  "name": "Git packfile",
+  "category": "other",
+  "extensions": [
+   "pack"
+  ],
+  "mime": "",
+  "magic": [
+   {
+    "offset": 0,
+    "hex": "50 41 43 4B"
+   }
+  ],
+  "trailer": null,
+  "notes": "ASCII PACK followed by a version number and an object count.",
+  "tested": true,
+  "trailerTested": null
+ }
+]

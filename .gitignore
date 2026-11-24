@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# files the demo scripts write into the current folder
+mystery.bin
+carved_*
